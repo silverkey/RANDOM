@@ -1,0 +1,11 @@
+Order in which the scripts have been runned:
+
+1) attach_coordinates.R
+2) make_one_file.pl
+3) build_repeats_matrix.R
+4) jack_the_mapper.R
+5) repeats_mapper.R
+
+The script make.id.map.R is runned at runtime by the script jack_the_mapper
+it takes advantage of a local installation of mysql UCSC tables
+
