@@ -1,0 +1,10 @@
+Data downloaded on 20/12/2011 from http://www.ebi.ac.uk/ena/data/view/SRR331946
+ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR331/SRR331946/SRR331946_1.fastq.gz
+ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR331/SRR331946/SRR331946_2.fastq.gz
+
+Data downloaded from http://www.ebi.ac.uk/ena/data/view/SRR108980 on 20/12/2011
+ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR108/SRR108980/SRR108980.fastq.gz
+
+nohup mira --project=octopus_transcripts --job=denovo,est,accurate,sanger,454,solexa SOLEXA_SETTINGS -GE:tismin=200:tismax=600 &
+
+
