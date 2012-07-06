@@ -1,20 +1,32 @@
-nohup perl NGSQCToolkit_v2.2.3/QC/IlluQC.pl -pe D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_1_sequence.txt D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_2_sequence.txt 2 A &
-
+-----------------------------
+DONE OK
+-----------------------------
 mv D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_1_sequence.txt starfish_1
 mv D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_2_sequence.txt starfish_2
+nohup perl NGSQCToolkit_v2.2.3/QC/IlluQC_PRLL_mod.pl -l 90 -s 30 -c 22 -o IlluQC_Filtered_files_90_30_mod -pe starfish_1 starfish_2 2 A &
+
+ulimit -s unlimited
+nohup Trinity.pl --kmer_method jellyfish --seqType fq --left starfish_1_filtered --right starfish_2_filtered --max_memory 250G --CPU 15 --bflyHeapSpaceMax 25G --bflyCalculateCPU &
+nohup alignReads.pl --left starfish_1_filtered --right starfish_2_filtered --seqType fq --target Trinity_comp_length_1000.fasta --aligner bowtie -- -p 20 &
+nohup run_RSEM.pl --transcripts Trinity_comp_length_1000.fasta --name_sorted_bam bowtie_out/bowtie_out.nameSorted.PropMapPairsForRSEM.bam --paired --thread_count 15 &
+nohup summarize_RSEM_fpkm.pl --transcripts Trinity_comp_length_1000.fasta --RSEM RSEM.isoforms.results --fragment_length 300 | tee Trinity_comp_length_1000.RSEM.fpkm &
+-----
+nohup summarize_RSEM_fpkm.pl --transcripts Trinity_comp_length_1000.fasta --RSEM RSEM.isoforms.results --fragment_length 300 --group_by_component | tee Trinity_grouped_comp_length_10$
+
+
+
+-----------------------------
+VARIE
+-----------------------------
+nohup perl NGSQCToolkit_v2.2.3/QC/IlluQC.pl -pe D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_1_sequence.txt D0NH9ACXX_JTC1Santella_11s004182-1-1_Borra_lane811s004182_2_sequence.txt 2 A &
 
 nohup perl NGSQCToolkit_v2.2.3/QC/IlluQC_PRLL.pl -l 80 -s 30 -c 22 -o IlluQC_Filtered_files_80_30 -z g -pe starfish_1 starfish_2 2 A &
 
-nohup perl NGSQCToolkit_v2.2.3/QC/IlluQC_PRLL_mod.pl -l 90 -s 30 -c 22 -o IlluQC_Filtered_files_90_30_mod -pe starfish_1 starfish_2 2 A &
 nohup alignReads.pl --left /media/LOCAL_DATA_2/RNAseq_SZN/santella/D0NH9ACXX/IlluQC_Filtered_files_80_30/SEQ_80_30/starfish_1_filtered --right /media/LOCAL_DATA_2/RNAseq_SZN/santella/D0NH9ACXX/IlluQC_Filtered_files_80_30/SEQ_80_30/starfish_2_filtered --seqType fq --target Trinity_comp_length_1000.fasta --aligner bowtie -- -p 20 &
-
 
 
 ulimit -s unlimited
 nohup Trinity.pl --kmer_method jellyfish --seqType fq --left starfish_1_filtered --right starfish_2_filtered --max_memory 250G --CPU 15 --bflyHeapSpaceMax 25G --bflyCalculateCPU &
-
-
-
 
 
 nohup alignReads.pl --left /media/LOCAL_DATA_2/RNAseq_SZN/santella/D0NH9ACXX/IlluQC_Filtered_files_80_30/SEQ_80_30/starfish_1_filtered --right /media/LOCAL_DATA_2/RNAseq_SZN/santella/D0NH9ACXX/IlluQC_Filtered_files_80_30/SEQ_80_30/starfish_2_filtered --seqType fq --target Trinity.fasta --aligner bowtie -- -p 20 &
@@ -22,4 +34,8 @@ nohup alignReads.pl --left /media/LOCAL_DATA_2/RNAseq_SZN/santella/D0NH9ACXX/Ill
 run_RSEM.pl --transcripts Trinity.fasta --name_sorted_bam bowtie_out.nameSorted.sam.+.sam.PropMapPairsForRSEM.bam --paired
 
 summarize_RSEM_fpkm.pl --transcripts Trinity.fasta --RSEM RSEM.isoforms.results --fragment_length 300 --group_by_component | tee Trinity.RSEM.fpkm
+
+
+
+
 
