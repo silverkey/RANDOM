@@ -1,0 +1,8 @@
+nohup exonerate -q /media/LOCAL_DATA/DNAseq_SZN/multistriata/transcriptome/Pseudo-Nitzschia_multistriata_final_contigs.fa -t /media/LOCAL_DATA/DNAseq_SZN/multistriata/genome/Assembly_abyss_v1.0/v1.0_over_10000.fasta -m est2genome --showtargetgff yes --bestn 1 --dpmemory 10000 --fsmmemory 10000 --maxintron 10000 --geneseed 200 --percent 80 --ryo ">QUERY: %qi length=%ql alnlen=%qal\n>TARGET: %ti length=%tl alnlen=%tal\n>INFO: percentage=%pi identical=%ei mismatch=%em strand=%g\n>CIGAR: %C" > exonerate_genome1.0_10000_200_80_bestn1_for_parsing.out &
+
+nohup exonerate -q /media/LOCAL_DATA/DNAseq_SZN/multistriata/transcriptome/Pseudo-Nitzschia_multistriata_final_contigs.fa -t /media/LOCAL_DATA/DNAseq_SZN/multistriata/genome/Assembly_abyss_v1.0/v1.0_over_10000.fasta -m est2genome --showtargetgff yes --bestn 1 --dpmemory 10000 --fsmmemory 10000 --maxintron 10000 --geneseed 100 --percent 60 --ryo ">QUERY: %qi length=%ql alnlen=%qal\n>TARGET: %ti length=%tl alnlen=%tal\n>INFO: percentage=%pi identical=%ei mismatch=%em strand=%g\n>CIGAR: %C" > exonerate_genome1.0_10000_100_60_bestn1_for_parsing.out &
+
+nohup perl exonerate2gff3.pl exonerate_genome1.0_10000_200_80_bestn1_for_parsing.out > pm_exonerate_1.0_10000.gff3 &
+
+cp /home/marcom/GFF3_test_script_and_analysis/dati_ottenuti/statistic_analysis_on_parsing_exo_v1.0_10000_200_80_best.txt counts_pm_exonerate_1.0_10000.txt
+

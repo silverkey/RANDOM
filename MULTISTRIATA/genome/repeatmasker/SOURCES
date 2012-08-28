@@ -1,0 +1,18 @@
+# TRF was downloaded from http://tandem.bu.edu/trf/trf404.linux64.download.html
+mv trf404.linux64 trf
+
+# REPEAT database
+wget -U firefox --user=sanges --password=iy6o20 http://www.girinst.org/server/RepBase/protected/repeatmaskerlibraries/repeatmaskerlibraries-20120418.tar.gz
+cp Libraries/RepeatMaskerLib.embl RepeatMasker/Libraries/
+# wget -U firefox --user=XXX --password=YYY http://www.girinst.org/server/RepBase/protected/RepBase17.07.embl.tar.gz
+# wget -U firefox --user=XXX --password=YYY http://www.girinst.org/server/RepBase/protected/RepBase17.07.fasta.tar.gz
+# wget -U firefox --user=XXX --password=YYY http://www.girinst.org/server/RepBase/protected/REPET/RepBase17.01_REPET.embl.tar.gz
+
+# RMBLAST
+wget http://www.repeatmasker.org/rmblast-1.2-ncbi-blast-2.2.23+-x64-linux.tar.gz
+./configure --with-mt --prefix=/usr/local/rmblast --without-debug
+make
+sudo make install
+
+# REPEATMASKER
+wget http://www.repeatmasker.org/RepeatMasker-open-3-3-0-p1.tar.gz

@@ -1,0 +1,5 @@
+nohup /home/remo/src/repeatmasker/RepeatMasker/RepeatMasker -species stramenopiles /media/LOCAL_DATA/DNAseq_SZN/multistriata/genome/Assembly_abyss_v1.0/v1.0_over_10000.fasta > rm_assembly_1.0_10000.nohup &
+
+~/src/repeatmasker/RepeatMasker/util/rmOutToGFF3.pl v1.0_over_10000.fasta.out > v1.0_over_10000.fasta.out.gff3
+
+/home/remo/src/repeatmasker/RepeatMasker/util/queryRepeatDatabase.pl -species stramenopiles -stat
