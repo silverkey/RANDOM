@@ -1,0 +1,21 @@
+ulimit -s unlimited
+
+nohup Trinity.pl --seqType fa --left left.fa --right right.fa --JM 250G --CPU 15 --bflyHeapSpaceMax 25G --bflyCalculateCPU &
+
+nohup alignReads.pl --left ../xraw/left.fa --right ../xraw/right.fa --seqType fa --target trinity_out_dir/Trinity.fasta --aligner bowtie --sort_buffer_size 50 -o xraw_align -- -p 20 &
+nohup alignReads.pl --left ../yraw/left.fa --right ../yraw/right.fa --seqType fa --target trinity_out_dir/Trinity.fasta --aligner bowtie --sort_buffer_size 50 -o yraw_align -- -p 20 &
+
+
+nohup run_RSEM.pl --transcripts trinity_out_dir/Trinity.fasta --name_sorted_bam xraw_align/xraw_align.nameSorted.PropMapPairsForRSEM.bam --paired --thread_count 20 &
+mv RSEM.* xraw_align/
+mv TRANS.* xraw_align/
+
+nohup run_RSEM.pl --transcripts trinity_out_dir/Trinity.fasta --name_sorted_bam yraw_align/yraw_align.nameSorted.PropMapPairsForRSEM.bam --paired --thread_count 20 &
+mv RSEM.* yraw_align/
+mv TRANS.* yraw_align/
+
+nohup summarize_RSEM_fpkm.pl --transcripts trinity_out_dir/Trinity.fasta --RSEM xraw_align/RSEM.isoforms.results --fragment_length 300 | tee Trinity_X.RSEM.fpkm &
+nohup summarize_RSEM_fpkm.pl --transcripts trinity_out_dir/Trinity.fasta --RSEM yraw_align/RSEM.isoforms.results --fragment_length 300 | tee Trinity_Y.RSEM.fpkm &
+
+
+#nohup summarize_RSEM_fpkm.pl --transcripts Trinity_comp_length_1000.fasta --RSEM RSEM.isoforms.results --fragment_length 300 --group_by_component | tee Trinity_grouped_comp_length_10$
